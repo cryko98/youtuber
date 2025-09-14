@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youtuber Coin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: #000;
+            color: white;
+            padding-top: 6rem;
+            position: relative;
+            overflow-x: hidden;
+            z-index: 1;
+        }
+
+        /* Animated Network Background */
+        .background-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: 
+                radial-gradient(circle at top, rgba(255, 0, 0, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at bottom, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(to right, #111 1px, transparent 1px), 
+                linear-gradient(to bottom, #111 1px, transparent 1px);
+            background-size: 
+                100% 100%, 
+                100% 100%, 
+                50px 50px, 
+                50px 50px;
+            animation: move-grid 20s linear infinite, glow-pulse 10s infinite;
+        }
+
+        @keyframes move-grid {
+            from { background-position: 0 0, 0 0, 0 0, 0 0; }
+            to { background-position: 50px 50px, -50px -50px, 50px 50px, 50px 50px; }
+        }
+
+        @keyframes glow-pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Custom animations and styles */
+        @keyframes pulse-red-white {
+            0%, 100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.6), 0 0 10px rgba(255, 255, 255, 0.3), 0 0 15px rgba(255, 0, 0, 0.6); }
+            50% { box-shadow: 0 0 15px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.5), 0 0 45px rgba(255, 0, 0, 1); }
+        }
+
+        .pulse-red-white {
+            animation: pulse-red-white 2s infinite ease-in-out;
+        }
+
+        @keyframes neon-glow {
+            from { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #e50000, 0 0 20px #e50000, 0 0 25px #e50000, 0 0 30px #e50000; }
+            to { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e50000, 0 0 40px #e50000, 0 0 50px #e50000, 0 0 60px #e50000; }
+        }
+
+        .neon-glow {
+            animation: neon-glow 1.5s ease-in-out infinite alternate;
+        }
+
+        #copyMessage {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .visible {
+            opacity: 1 !important;
+        }
+
+        .border-glow-white {
+            border: 2px solid #fff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body class="bg-black text-white antialiased">
+    <div class="background-network"></div>
+
+    <!-- Header navigation bar -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-black bg-opacity-90 backdrop-filter backdrop-blur-lg shadow-2xl">
+        <nav class="flex items-center justify-between p-4 md:p-6 lg:p-8">
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <a href="#intro" class="text-white hover:text-[#e50000] transition-colors duration-300 font-bold text-sm md:text-base">HOME</a>
+                <a href="#tokenomics" class="text-white hover:text-[#e50000] transition-colors duration-300 font-bold text-sm md:text-base">TOKEN</a>
+                <a href="#donations" class="text-white hover:text-[#e50000] transition-colors duration-300 font-bold text-sm md:text-base">DONATIONS</a>
+                <a href="#chart" class="text-white hover:text-[#e50000] transition-colors duration-300 font-bold text-sm md:text-base">CHART</a>
+            </div>
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <div class="relative bg-neutral-900 rounded-lg p-2 flex items-center shadow-inner cursor-pointer transition-transform transform hover:scale-105 border-glow-white" id="header-ca-box">
+                    <span class="text-xs md:text-sm text-gray-400 select-none">ca:</span>
+                    <span id="header-ca-address" class="ml-1 text-xs md:text-sm font-mono text-white">xxxxxxxxxxxxxxxxxxxxxx</span>
+                    <div id="headerCopyMessage" class="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2 py-1 bg-[#e50000] rounded text-xs text-white whitespace-nowrap hidden">Copied!</div>
+                </div>
+                <a href="#" target="_blank" class="w-8 h-8 md:w-10 md:h-10 transition-transform transform hover:scale-110">
+                     <svg class="w-full h-full text-white hover:text-[#e50000] transition-colors duration-300" viewBox="0 0 24 24" fill="currentColor" aria-label="X.com logo">
+                        <path d="M18.244 2.25h3.308l-7.227 8.261 8.243 11.239H16.13l-6.262-8.528L4.66 22.75H1.352l7.657-8.756L1.503 2.25h3.308l5.498 7.51L18.244 2.25zm-2.909 18.243l-8.156-11.11L1.352 2.25h3.308l6.114 8.81L21.848 22.75h-3.308z"></path>
+                    </svg>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main content section -->
+    <main class="container mx-auto p-4 md:p-8 lg:p-12">
+        <!-- Intro section -->
+        <section id="intro" class="mb-24 text-center pt-8">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-[#e50000] neon-glow mb-4">YOUTUBER COIN</h1>
+            <p class="text-lg md:text-xl text-white max-w-3xl mx-auto">
+                Introducing Youtuber Coin, the innovative crypto token designed to support your favorite streamers.
+                A percentage of every transaction will be allocated to a creator fund,
+                directly supporting content creators during their live streams.
+            </p>
+        </section>
+
+        <!-- Logo and CA section -->
+        <section id="tokenomics" class="mb-24 flex flex-col items-center text-center">
+            <div class="bg-white p-4 rounded-full mb-8 shadow-2xl pulse-red-white w-48 h-48 md:w-64 md:h-64 flex items-center justify-center overflow-hidden border-glow-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32 md:w-48 md:h-48 text-[#e50000]" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M21.583 6.44a2.822 2.822 0 0 0-1.996-1.996C18.423 4 12 4 12 4s-6.423 0-7.587.44a2.822 2.822 0 0 0-1.996 1.996C2 7.584 2 12 2 12s0 4.416.417 5.56a2.822 2.822 0 0 0 1.996 1.997c1.164.44 7.587.44 7.587.44s6.423 0 7.587-.44a2.822 2.822 0 0 0 1.996-1.996c.417-1.144.417-5.56.417-5.56s0-4.416-.417-5.56zM9.998 15.424V8.576L15.424 12l-5.426 3.424z"></path>
+                </svg>
+            </div>
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4">
+                $YOUTUBER
+            </h2>
+            <div class="bg-neutral-900 rounded-lg p-4 flex items-center shadow-lg w-full max-w-sm md:max-w-md lg:max-w-lg cursor-pointer transition-transform transform hover:scale-105 border-glow-white" id="ca-box">
+                <span class="text-[#e50000] font-bold text-sm md:text-base">ca:</span>
+                <span id="ca-address" class="ml-2 text-sm md:text-base font-mono text-white overflow-hidden text-ellipsis whitespace-nowrap">0x0000000000000000000000000000000000000000</span>
+                <span id="copyMessage" class="ml-4 text-xs md:text-sm font-bold text-[#e50000] transition-opacity"></span>
+            </div>
+            <p class="mt-4 text-sm text-gray-500">Click to copy address.</p>
+        </section>
+
+        <!-- TOP DONATIONS section -->
+        <section id="donations" class="mb-24">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-12 text-[#e50000]">TOP DONATIONS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- First Donor -->
+                <div class="flex flex-col items-center text-center p-6 bg-neutral-900 rounded-lg shadow-xl border-glow-white transform transition-transform hover:scale-105">
+                    <img src="https://placehold.co/150x150/ff0000/ffffff?text=DONOR+1" alt="First Donor" class="w-32 h-32 md:w-40 md:h-40 rounded-full mb-4 object-cover border-4 border-white transform transition-transform duration-500 hover:rotate-6">
+                    <p class="text-sm md:text-base text-gray-300">"Pushing forward into the future! Youtuber Coin is the future of streaming."</p>
+                </div>
+                <!-- Second Donor -->
+                <div class="flex flex-col items-center text-center p-6 bg-neutral-900 rounded-lg shadow-xl border-glow-white transform transition-transform hover:scale-105">
+                    <img src="https://placehold.co/150x150/ff0000/ffffff?text=DONOR+2" alt="Second Donor" class="w-32 h-32 md:w-40 md:h-40 rounded-full mb-4 object-cover border-4 border-white transform transition-transform duration-500 hover:-rotate-6">
+                    <p class="text-sm md:text-base text-gray-300">"The best way to support my favorite creators."</p>
+                </div>
+                <!-- Third Donor -->
+                <div class="flex flex-col items-center text-center p-6 bg-neutral-900 rounded-lg shadow-xl border-glow-white transform transition-transform hover:scale-105">
+                    <img src="https://placehold.co/150x150/ff0000/ffffff?text=DONOR+3" alt="Third Donor" class="w-32 h-32 md:w-40 md:h-40 rounded-full mb-4 object-cover border-4 border-white transform transition-transform duration-500 hover:rotate-3">
+                    <p class="text-sm md:text-base text-gray-300">"This project has huge potential, I'm glad I can support it."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Chart section -->
+        <section id="chart" class="mb-12">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 text-[#e50000]">LIVE CHART</h2>
+            <div class="bg-neutral-900 rounded-lg shadow-xl overflow-hidden pulse-red-white border-glow-white">
+                <!-- Dexscreener chart embed. You will need to update this with your token's address. -->
+                <iframe src="https://dexscreener.com/embed/placeholder-chart?theme=dark" class="w-full h-[600px] border-none" title="Live Chart"></iframe>
+            </div>
+        </section>
+    </main>
+
+    <!-- JS for copy to clipboard -->
+    <script>
+        document.getElementById('ca-box').addEventListener('click', function() {
+            copyToClipboard('ca-address', 'copyMessage');
+        });
+
+        document.getElementById('header-ca-box').addEventListener('click', function() {
+            copyToClipboard('header-ca-address', 'headerCopyMessage');
+        });
+
+        function copyToClipboard(elementId, messageId) {
+            const address = document.getElementById(elementId).innerText;
+            try {
+                const tempInput = document.createElement('textarea');
+                tempInput.value = address;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+
+                const messageElement = document.getElementById(messageId);
+                messageElement.innerText = 'Copied!';
+                messageElement.classList.remove('hidden');
+                messageElement.classList.add('visible');
+                setTimeout(() => {
+                    messageElement.classList.remove('visible');
+                    messageElement.classList.add('hidden');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+            }
+        }
+    </script>
+</body>
+</html>
