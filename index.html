@@ -82,6 +82,41 @@
             border: 2px solid #fff;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
         }
+
+        /* New animated logo styles */
+        .logo-shine-container {
+            position: relative;
+            overflow: hidden;
+            background-color: #000;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-shine-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(255, 255, 255, 0.5), #e50000, rgba(255, 255, 255, 0.5), transparent);
+            animation: rotate-conic 4s linear infinite;
+        }
+
+        .logo-shine-container::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            background-color: #000;
+            border-radius: inherit;
+        }
+
+        @keyframes rotate-conic {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="bg-black text-white antialiased">
@@ -125,8 +160,8 @@
 
         <!-- Logo and CA section -->
         <section id="tokenomics" class="mb-24 flex flex-col items-center text-center">
-            <div class="bg-white p-4 rounded-full mb-8 shadow-2xl pulse-red-white w-48 h-48 md:w-64 md:h-64 flex items-center justify-center overflow-hidden border-glow-white">
-                <img src="ytlogo.png" alt="Youtuber Coin Logo" class="w-32 h-32 md:w-48 md:h-48 object-contain">
+            <div class="logo-shine-container w-48 h-48 md:w-64 md:h-64 flex items-center justify-center rounded-full mb-8 shadow-2xl pulse-red-white">
+                <img src="ytlogo.png" alt="Youtuber Coin Logo" class="w-32 h-32 md:w-48 md:h-48 object-contain relative z-20">
             </div>
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4">
                 $YOUTUBER
